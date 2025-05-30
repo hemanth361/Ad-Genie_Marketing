@@ -1,2 +1,2 @@
-# PDF Branding Generator
-print('Generating branded PDF reports...')
+def create_pdf_report(client_name):
+    return f"Generating PDF report for {client_name}"

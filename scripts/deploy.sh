@@ -1,2 +1,2 @@
 #!/bin/bash
-echo 'Deploying Ad Genie...'
+echo 'Deploying Ad Genie to production...'

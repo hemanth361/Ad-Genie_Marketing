@@ -1,6 +1,6 @@
 def analyze(text):
-    if "bad" in text.lower():
+    if any(x in text.lower() for x in ["bad", "hate", "worst"]):
         return "negative"
-    elif "good" in text.lower():
+    if any(x in text.lower() for x in ["great", "love", "best"]):
         return "positive"
     return "neutral"

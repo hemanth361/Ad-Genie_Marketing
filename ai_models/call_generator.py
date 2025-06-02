@@ -1,2 +1,2 @@
-def generate_call_script(customer_name):
-    return f"Hello {customer_name}, we have an exciting offer just for you!"
+def generate_call_script(name):
+    return f"Hello {name}, we have a limited time offer just for you! Visit our site now."

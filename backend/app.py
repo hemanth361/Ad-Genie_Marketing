@@ -1,20 +1,32 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request, jsonify
+from ai_models.call_generator import generate_call_script
+from ai_models.sentiment_analysis import analyze
+from ai_models.social_post_generator import generate_post
+
 app = Flask(__name__)
 
 @app.route('/')
-def home():
-    return 'Ad Genie Backend Running!'
+def index():
+    return "Ad Genie Backend is Running!"
 
 @app.route('/generate-call', methods=['POST'])
-def generate_call():
-    data = request.json
-    return jsonify({"message": f"Calling {data.get('name')} with message: {data.get('message')}"})
+def call():
+    name = request.json.get("name", "User")
+    message = generate_call_script(name)
+    return jsonify({"script": message})
 
-@app.route('/analyze-sentiment', methods=['POST'])
-def analyze_sentiment():
-    text = request.json.get("text")
-    sentiment = "positive" if "good" in text.lower() else "neutral"
-    return jsonify({"sentiment": sentiment})
+@app.route('/analyze', methods=['POST'])
+def sentiment():
+    text = request.json.get("text", "")
+    result = analyze(text)
+    return jsonify({"sentiment": result})
+
+@app.route('/post', methods=['POST'])
+def post():
+    product = request.json.get("product", "service")
+    audience = request.json.get("audience", "everyone")
+    content = generate_post(product, audience)
+    return jsonify({"post": content})
 
 if __name__ == '__main__':
     app.run(debug=True)
